@@ -2,6 +2,10 @@ const express = require('express');
 const PORT = process.env.PORT || 9000
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
+const {
+    requireAuth,
+    checkUser
+} = require('./middleware/authMiddleware');
 
 const app = express();
 
@@ -34,6 +38,7 @@ db.mongoose
     })
 
 // routes
+app.get('*', checkUser);
 app.get('/', (req, res) => res.render('home'));
-app.get('/smoothies', (req, res) => res.render('smoothies'));
+app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use(authRoutes);
