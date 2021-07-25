@@ -36,29 +36,4 @@ db.mongoose
 // routes
 app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', (req, res) => res.render('smoothies'));
-app.use(authRoutes)
-
-// cookies
-app.get('/set-cookies', (req, res) => {
-
-    // res.setHeader('Set-Cookie', 'newUser=true');
-
-    res.cookie('newUser', false);
-    res.cookie('isEmployee', true, {
-        // 1000ms * 60s * 60 menit * 24 jam
-        maxAge: 1000 * 60 * 60 * 24,
-        httpOnly: true
-        // output: document.cookie => value cookie yg di atas 
-        // secure: true --if using https
-        // httpOnly: true --if using http
-    });
-
-    res.send('yout got the cookie!');
-});
-
-app.get('/read-cookies', (req, res) => {
-    const cookies = req.cookies;
-    console.log(cookies.newUser);
-
-    res.json(cookies);
-});
+app.use(authRoutes);
